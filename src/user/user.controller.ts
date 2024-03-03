@@ -4,23 +4,25 @@ import { AuthGuard } from '@nestjs/passport';
 
 @Controller('user')
 export class UserController {
-    constructor(private readonly userService: UserService) {}
-    
-    @UseGuards(AuthGuard('jwt'))
-    @Get('/id/:id')
-    async getUserById(id: number) {
-        return await this.userService.getUserById(id);
-    }
+  constructor(private readonly userService: UserService) {}
 
-    @UseGuards(AuthGuard('jwt'))
-    @Get()
-    async getAllUsers() {
-        return await this.userService.getAllUsers();
-    }
+  @UseGuards(AuthGuard('jwt'))
+  @Get('/id/:id')
+  async getUserById(id: number) {
+    return await this.userService.getUserById(id);
+  }
 
-    @Get('create/:email/:password')
-    async createUser(@Param('email') email: string,@Param('password') password: string) {
-        return await this.userService.createUser(email, password);
-    }
-    
+  @UseGuards(AuthGuard('jwt'))
+  @Get()
+  async getAllUsers() {
+    return await this.userService.getAllUsers();
+  }
+
+  @Get('create/:email/:password')
+  async createUser(
+    @Param('email') email: string,
+    @Param('password') password: string,
+  ) {
+    return await this.userService.createUser(email, password);
+  }
 }
