@@ -8,7 +8,7 @@ export class UserService {
   async getUserById(id: number) {
     return await this.prisma.user.findUnique({ where: { id: id } });
   }
-async getUserByEmail(email: string) {
+  async getUserByEmail(email: string) {
     return await this.prisma.user.findUnique({ where: { email: email } });
   }
 
@@ -17,9 +17,14 @@ async getUserByEmail(email: string) {
   }
 
   async createUser(email: string, password: string) {
-    return await this.prisma.user.create({
-      data: { email: email, password: password },
-    });
+    try {
+      const result = await this.prisma.user.create({
+        data: { email: email, password: password },
+      });
+      return result;
+    } catch (e) {
+      return e.message;
+    }
   }
 
   async registerUser(createUserDto: CreateUserDto) {

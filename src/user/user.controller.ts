@@ -12,7 +12,7 @@ export class UserController {
     return await this.userService.getUserById(id);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  // @UseGuards(AuthGuard('jwt'))
   @Get()
   async getAllUsers() {
     return await this.userService.getAllUsers();
