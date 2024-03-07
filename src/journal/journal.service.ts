@@ -6,7 +6,11 @@ export class JournalService {
   constructor(private readonly prisma: PrismaService) {}
 
   async getAllJournals() {
-    return await this.prisma.journal.findMany();
+    return await this.prisma.journal.findMany({
+      orderBy: {
+        id: 'desc',
+      },
+    });
   }
 
   async getJournalById(id: number) {
